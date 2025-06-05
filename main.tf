@@ -16,15 +16,15 @@ terraform {
 }
 
 provider "harvester" {
-  kubeconfig = "hayseed-kubeconfig.yaml"
+  kubeconfig = var.kube_config
 }
 
 provider "kubernetes" {
-  config_path = "hayseed-kubeconfig.yaml"
+  config_path = var.kube_config
 }
 
 # Generate a secure 32-byte encryption key
-resource "random_password" "encryption_key" {
+resource "random_password" "harvester_encryption_key" {
   length  = 256
   special = false
 }
