@@ -1,4 +1,4 @@
-GNU nano 7.2                                                            main.tf                                                                     terraform {
+terraform {
   required_version = ">= 0.13"
   required_providers {
     harvester = {
