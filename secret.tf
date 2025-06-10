@@ -13,5 +13,5 @@ resource "kubernetes_secret" "encryption_secret" {
     CRYPTO_PBKDF = "argon2i"
   }
 
-  type = "Opaque"
+  type = "secret"
 }

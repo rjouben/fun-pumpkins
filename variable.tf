@@ -1,12 +1,11 @@
 variable "kube_config" {
     type = string
-    default = "hayseed-kubeconfig.yaml"
+    default = "~/.kube/config.yaml"
     description = "Path to Harvester Kube Config File"
 }
 variable "harvester_image_name" {
     type = string
-    default = "ubuntu-encrypted"
-    description = "name of the vm base image"
+    default = "ubuntu"
 }
 variable "harvester_namespace" {
     type = string
@@ -14,10 +13,30 @@ variable "harvester_namespace" {
 }
 variable "img_display_name" {
     type = string
-    default = "Ubuntu Server 24.04 Encrypted Image"
+    default = "Ubuntu Server 24.04"
+}
+variable "longhorn_storage_class" {
+    type = string
+    default = "harvester-longhorn"
 }
 variable "base_image_url" {
     type = string
-    default = "http://pixie.fun-pumpkins.net/ubuntu-server/24.04_LTS/ubuntu-24.04.1-live-server-amd64.iso"
-    description = "location of image to install"
+    default = "https://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso"
+}
+variable "harvester_url" {
+    type = string
+    default = "https://harvester.local"
+}
+variable "rancher_url" {
+    type = string
+    default = "https://rancher.local"  
+}
+variable "username" {
+    type = string
+    default = "admin"
+}  
+variable "password" {
+    type = string
+    default = "password"
+    description = "Harvester administrator password"
 }

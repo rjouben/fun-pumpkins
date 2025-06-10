@@ -1,13 +1,18 @@
-resource "harvester_image" "ubuntu-encrypted" {
+resource "harvester_image" "server_image" {
   name               = var.harvester_image_name
   namespace          = var.harvester_namespace
 
-  storage_class_name = "longhorn-${var.harvester_image_name}"
+  storage_class_name = var.longhorn_storage_class
 
   source_type        = "download"
   url                = var.base_image_url
-  display_name       = var.img_display_name
-  #storage_class_name = kubernetes_storage_class.encrypted_storage.metadata[0].name
+  display_name       = var.harvester_image_name
 
-  depends_on = [ kubernetes_secret.encryption_secret, harvester_storageclass.encrypted_storage_class ]
-}   
+# tags               = { "os-type" = "Ubuntu", "image-type" = "ISO"}
+}
+
+resource "null_resource" "encrypt_image" {
+  provisioner "local-exec" {
+    command = "python3 encrypt_image.py"
+  }
+}
