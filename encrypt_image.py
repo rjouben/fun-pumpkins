@@ -47,16 +47,16 @@ def upload_image(token):
         "metadata": {
             "name": f"{IMAGE_NAME}-encrypted",
             "annotations": {
-                "harvesterhci.io/storageClassName": f"longhorn-{IMAGE_NAME}-encrypted"
+                "harvesterhci.io/storageClassName": f"{IMAGE_NAME}-encrypted"
             },
-            "namespace": IMAGE_NAMESPACE
+            "namespace": f"{IMAGE_NAMESPACE}"
         },
         "spec": {
-            "displayName": f"{IMAGE_NAME}-zencrypted",
+            "displayName": f"{IMAGE_NAME}-encrypted",
             "securityParameters": {
                 "cryptoOperation": "encrypt",
-                "sourceImageName": "ubuntu-24",
-                "sourceImageNamespace": IMAGE_NAMESPACE
+                "sourceImageName": f"{IMAGE_NAME}",
+                "sourceImageNamespace": f"{IMAGE_NAMESPACE}"
              },
             "sourceType": "clone"
         }

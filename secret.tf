@@ -1,3 +1,4 @@
+# Create the encryption secret
 resource "kubernetes_secret" "encryption_secret" {
   metadata {
     name      = "encryption-secret"

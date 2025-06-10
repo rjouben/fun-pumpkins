@@ -33,6 +33,7 @@ locals {
   encryption_key = random_password.encryption_key.result
 }
 
+# Create the encryption secret
 resource "kubernetes_secret" "encryption_secret" {
   metadata {
     name      = "encryption-secret"
@@ -53,7 +54,8 @@ resource "kubernetes_secret" "encryption_secret" {
 
 # Create the encypted storage class
 resource "harvester_storageclass" "encrypted_storage_class" {
-  name = "longhorn-${var.harvester_image_name}-encrypted"
+  name = "${var.harvester_image_name}-encrypted"
+#  name = "longhorn-${var.harvester_image_name}-encrypted"
 
   volume_provisioner = "driver.longhorn.io"
   parameters = {
@@ -92,6 +94,10 @@ resource "harvester_image" "server_image" {
 
 # Encrypt the uploaded image using a python scripted API call
 resource "null_resource" "encrypt_image" {
+  triggers = {
+    timestamp = timestamp()
+  }
+
   provisioner "local-exec" {
     command = "python3 encrypt_image.py"
   }
