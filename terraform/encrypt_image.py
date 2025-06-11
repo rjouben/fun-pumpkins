@@ -34,8 +34,8 @@ def get_bearer_token():
     response.raise_for_status()
     return response.json()["token"]
 
-# Step 2: Upload the image to Harvester
-def upload_image(token):
+# Step 2: Encrypt the Uploaded Image to Harvester
+def encrypt_image(token):
     upload_url = f"{HARVESTER_URL}/v1/harvesterhci.io.virtualmachineimages"
     headers = {
         "Authorization": f"Bearer {token}",
@@ -72,6 +72,6 @@ def upload_image(token):
 if __name__ == "__main__":
     try:
         token = get_bearer_token()
-        upload_image(token)
+        encrypt_image(token)
     except requests.RequestException as e:
         print(f"❌ Error: {e}")
