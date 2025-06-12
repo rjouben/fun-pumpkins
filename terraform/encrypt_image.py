@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import json
-import requests
-import urllib3
+import requests # type: ignore
+import urllib3 # type: ignore
 
 # Disable SSL warnings (not for production use)
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
