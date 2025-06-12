@@ -24,7 +24,7 @@ services:
     networks:
       - gitea
     volumes:
-      - gitea:/data
+      - /mnt/gitea/data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - /home/git/.ssh/:/data/git/.ssh
