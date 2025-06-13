@@ -24,14 +24,14 @@ services:
     networks:
       - gitea
     volumes:
-      - /mnt/gitea/data:/data
+      - ./data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - /home/git/.ssh/:/data/git/.ssh
+      #- /home/git/.ssh/:/data/git/.ssh
     ports:
       - "3000:3000"
       - "222:22"
-      - "127.0.0.1:222:22"
+      #- "127.0.0.1:222:22"
     depends_on:
       - db
 
