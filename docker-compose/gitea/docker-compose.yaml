@@ -46,3 +46,4 @@ services:
       - gitea
     volumes:
       - ./postgres:/var/lib/postgresql/data
+      
