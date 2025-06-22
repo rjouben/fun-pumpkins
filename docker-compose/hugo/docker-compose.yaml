@@ -1,0 +1,11 @@
+version: '3.8' # Or a compatible version like '3.7'
+services:
+  hugo:
+    image:  ghcr.io/gohugoio/hugo:latest # Use 'ext' for extended features like Sass
+    container_name: hugo_docsa
+    ports:
+      - "1313:1313" # Map port 1313 from container to host
+    volumes:
+      - ./:/src # Mount the current directory (your Hugo project) to /src inside the container
+    command: hugo server --bind 0.0.0.0 --port 1313 --source /src --watch --disableFastRender # Command to run Hugo server
+    restart: unless-stopped # Restart the container unless manually stopped
