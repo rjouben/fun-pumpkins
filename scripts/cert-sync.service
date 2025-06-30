@@ -1,0 +1,6 @@
+[Unit]
+Description=Daily Check for New Certificates and Deployment
+
+[Service]
+Type=oneshot
+ExecStart=/opt/scripts/cert-sync.sh
