@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Configuration
-SRC_DIR="/opt/docker/nginx-proxy/data/custom_ssl/fun-pumpkins.net"
-DEST_DIR="/opt/docker/nginx-proxy/data/custom_ssl/npm-1"
+SRC_DIR="/opt/docker/nginx-proxy/data/custom_ssl/fun-pumpkins.net" # path to source directory
+DEST_DIR="/opt/docker/nginx-proxy/data/custom_ssl/npm-1" # path to destination directory
 TIMESTAMP_FILE="/opt/scripts/last_cert_sync"
 
 if [ ! -f "$TIMESTAMP_FILE" ]; then
