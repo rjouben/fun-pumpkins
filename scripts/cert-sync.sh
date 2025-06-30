@@ -25,9 +25,6 @@ find "$SRC_DIR" -type f -newermt "@$LAST_SYNC" | while read -r FILE; do
     FILENAME="${BASENAME%.*}"
     TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
-echo $BASENAME
-
-    # If no extension, don't append dot
     if [ "$FILENAME" == "key" ]; then
         NEW_NAME="privkey.${EXTENSION}"
 
@@ -39,7 +36,6 @@ echo $BASENAME
     fi
 
     DEST_PATH="$DEST_DIR/$NEW_NAME"
-#    mkdir -p "$DEST_DIR"
     cp -f "$FILE" "$DEST_PATH"
     echo "Copied and renamed: $FILE → $DEST_PATH"
 done
