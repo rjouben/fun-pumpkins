@@ -24,7 +24,7 @@ spec:
             model: virtio
         resources:
           requests:
-            memory: 2Gi
+            memory: 4Gi
       networks:
       - name: default
         pod: {}
