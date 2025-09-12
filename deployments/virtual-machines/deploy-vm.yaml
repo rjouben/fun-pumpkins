@@ -6,7 +6,7 @@
     spec:
       cpu: 2
       memory: 4Gi
-      image: default/ubuntu-cloud-image # Replace with your image
+      image: default/ubuntu-24-encrypted # Replace with your image
       volumes:
         - name: rootdisk
           volumeClaimTemplate:
