@@ -1,0 +1,30 @@
+    apiVersion: harvesterhci.io/v1beta1
+    kind: VirtualMachine
+    metadata:
+      name: my-fleet-vm
+      namespace: default # Or your desired namespace
+    spec:
+      cpu: 2
+      memory: 4Gi
+      image: default/ubuntu-cloud-image # Replace with your image
+      volumes:
+        - name: rootdisk
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              resources:
+                requests:
+                  storage: 20Gi
+      networks:
+        - name: default
+          networkName: default/harvester-mgmt # Or your desired network
+      # Optional: Add cloud-init data for customization
+      cloudInit:
+        userData: |
+          #cloud-config
+          hostname: my-fleet-vm
+          users:
+            - name: rjouben
+              sudo: ALL=(ALL) NOPASSWD:ALL
+              ssh_authorized_keys:
+                - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2
