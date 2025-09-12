@@ -1,5 +1,5 @@
 # Example vm-definition.yml for creating a VM
-apiVersion: harvesterhci.io/v1beta1
+apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
   name: my-fleet-vm
