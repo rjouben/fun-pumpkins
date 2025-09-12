@@ -32,6 +32,12 @@ spec:
       - name: rootdisk
         persistentVolumeClaim:
           claimName: fleet-vm-01-disk
+      - cloudInitNoCloud:
+          userData: |
+            #cloud-config
+            hostname: fleet-vm-01
+            ssh_authorized_keys:
+              - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2
   dataVolumeTemplates:
   - metadata:
       name: fleet-vm-01-disk
