@@ -1,35 +1,35 @@
-    apiVersion: harvesterhci.io/v1
-    kind: VirtualMachine
-    metadata:
-      name: my-fleet-vm
-      namespace: default # Or your desired namespace
-    spec:
-      cpu:
-        cores: 2
-      memory: 4Gi
-      runStrategy: Always
-      image: default/ubuntu-24 # Replace with your image name and namespace
-      # Or, for ISO boot:
-      # iso: default/my-ubuntu-iso # Replace with your ISO name and namespace
-      volumes:
-        - name: rootdisk
-          volumeClaimTemplate:
-            spec:
-              accessModes: ["ReadWriteOnce"]
-              resources:
-                requests:
-                  storage: 20Gi
-        # Add additional volumes if needed
-      networks:
-        - name: default
-          networkName: default/mgmt # Or your desired network and namespace
-          type: bridge
-      cloudInit:
-        userData: |
-          #cloud-config
-          hostname: fleet-vm
-          users:
-            - name: rjouben
-              ssh_authorized_keys:
-                - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2
-              sudo: ALL
+apiVersion: kubevert.io/v1
+kind: VirtualMachine
+metadata:
+  name: my-fleet-vm
+  namespace: default # Or your desired namespace
+spec:
+  cpu:
+    cores: 2
+  memory: 4Gi
+  runStrategy: Always
+  image: default/ubuntu-24 # Replace with your image name and namespace
+  # Or, for ISO boot:
+  # iso: default/my-ubuntu-iso # Replace with your ISO name and namespace
+  volumes:
+    - name: rootdisk
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 20Gi
+    # Add additional volumes if needed
+  networks:
+    - name: default
+      networkName: default/mgmt # Or your desired network and namespace
+      type: bridge
+  cloudInit:
+    userData: |
+      #cloud-config
+      hostname: fleet-vm
+      users:
+        - name: rjouben
+          ssh_authorized_keys:
+            - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2
+          sudo: ALL
