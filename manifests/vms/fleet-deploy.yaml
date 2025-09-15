@@ -27,9 +27,6 @@ spec:
               disk:
                 bus: virtio
               name: disk-1
-            - disk:
-                bus: virtio
-              name: cloudinitdisk
           inputs:
             - bus: usb
               name: tablet
