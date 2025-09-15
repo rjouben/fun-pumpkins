@@ -20,7 +20,7 @@ spec:
             memory: 4Gi
         devices:
           disks:
-            - name: rootdisk
+            - name: disk-0
               disk:
                 bus: virtio
             - name: cloudinitdisk
@@ -33,9 +33,9 @@ spec:
         - name: default
           pod: {}
       volumes:
-        - name: rootdisk
+        - name: disk-0
           persistentVolumeClaim:
-            claimName: fleet-vm-rootdisk
+            claimName: fleet-vm-disk-0
         - name: cloudinitdisk
           cloudInitNoCloud:
             userData: |
@@ -50,7 +50,7 @@ spec:
               package_upgrade: true
       volumeClaimTemplates:
         - metadata:
-            name: fleet-vm-rootdisk
+            name: fleet-vm-disk-0
           spec:
             accessModes: ["ReadWriteOnce"]
             resources:
