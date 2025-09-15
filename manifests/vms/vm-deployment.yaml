@@ -2,7 +2,7 @@ apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
   name: basic-vm
-  namespace: vm-production
+  namespace: default
   labels:
     app: basic-vm
 spec:
@@ -65,4 +65,4 @@ spec:
             dataSource:
               kind: HarvesterImage
               name: ubuntu-24-encrypted         # Harvester Image name
-              namespace: harvester-public
+              namespace: default
