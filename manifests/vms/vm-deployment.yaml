@@ -6,7 +6,7 @@ metadata:
   labels:
     app: fleet-vm
 spec:
-  runStrategy: RunAlways
+  running: true
   template:
     metadata:
       labels:
