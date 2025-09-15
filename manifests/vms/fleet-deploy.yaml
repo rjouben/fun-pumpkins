@@ -67,5 +67,5 @@ spec:
             storage: 20Gi
       sourceRef:
         kind: HarvesterImage
-        name: ubuntu-24
-        namespace: default
+        name: 'ubuntu-24'
+        namespace: 'default'
