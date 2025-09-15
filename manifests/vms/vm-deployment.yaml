@@ -68,12 +68,12 @@ metadata:
   name: basic-vm-rootdisk
   namespace: default
   labels:
-    app: basic-vm
+    app: basic-fleet-vm
 spec:
   # If your image is already an existing PVC in harvester-public (typical), use the pvc source.
   source:
     pvc:
-      namespace: harvester-public         # REPLACE_ME: namespace where Harvester stores uploaded images (common: harvester-public)
+      namespace: default         # REPLACE_ME: namespace where Harvester stores uploaded images (common: harvester-public)
       name: ubuntu-24-encrypted # REPLACE_ME: name of the PVC that contains your image
   pvc:
     accessModes:
