@@ -55,15 +55,6 @@ spec:
       - name: vm-disk-01
         persistentVolumeClaim:
           claimName: fleet-vm-01-disk
-      - cloudInitNoCloud:
-          userData: |
-            #cloud-config
-            hostname: fleet-vm-01
-            users: 
-            - name: rjouben
-              sudo: ALL=(ALL) NOPASSWD:ALL
-              ssh_authorized_keys:
-              - 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2'
   dataVolumeTemplates:
   - metadata:
       name: fleet-vm-01-disk
