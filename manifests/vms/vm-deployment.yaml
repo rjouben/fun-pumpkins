@@ -1,16 +1,16 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
-  name: fleet-vm
-  namespace: default
+  name: basic-vm
+  namespace: vm-production
   labels:
-    app: fleet-vm
+    app: basic-vm
 spec:
   running: true
   template:
     metadata:
       labels:
-        kubevirt.io/domain: fleet-vm
+        kubevirt.io/domain: basic-vm
     spec:
       domain:
         cpu:
@@ -20,7 +20,7 @@ spec:
             memory: 4Gi
         devices:
           disks:
-            - name: disk-0
+            - name: rootdisk
               disk:
                 bus: virtio
             - name: cloudinitdisk
@@ -29,18 +29,23 @@ spec:
           interfaces:
             - name: default
               masquerade: {}
+            - name: vlan-net
+              bridge: {}
       networks:
         - name: default
           pod: {}
+        - name: vlan-net
+          multus:
+            networkName: vlan-100-bridge
       volumes:
-        - name: disk-0
+        - name: rootdisk
           persistentVolumeClaim:
-            claimName: fleet-vm-disk-0
+            claimName: basic-vm-rootdisk
         - name: cloudinitdisk
           cloudInitNoCloud:
             userData: |
               #cloud-config
-              hostname: fleet-vm
+              hostname: basic-vm
               users:
                 - name: rjouben
                   sudo: ALL=(ALL) NOPASSWD:ALL
@@ -50,14 +55,14 @@ spec:
               package_upgrade: true
       volumeClaimTemplates:
         - metadata:
-            name: fleet-vm-disk-0
+            name: basic-vm-rootdisk
           spec:
             accessModes: ["ReadWriteOnce"]
             resources:
               requests:
                 storage: 40Gi
-            storageClassName: ubuntu-24-encrypted   # Adjust to your storage class
+            storageClassName: ubuntu-24-encrypted
             dataSource:
               kind: HarvesterImage
-              name: vmi-baa7acbd-2883-4cdf-8aa8-d935d6a032b4
-              namespace: default
+              name: ubuntu-24-encrypted         # Harvester Image name
+              namespace: harvester-public

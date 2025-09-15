@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vm-production
+  labels:
+    fleet.cattle.io/namespace: "true"
+    environment: production
