@@ -29,14 +29,14 @@ spec:
           interfaces:
             - name: default
               masquerade: {}
-            - name: vlan-net
+            - name: mgmt-nic
               bridge: {}
       networks:
-        - name: default
+        - multus:
+            networkName: default/vm-network
+          name: default
+        - name: mgmt-nic
           pod: {}
-        - name: vlan-net
-          multus:
-            networkName: vlan-100-bridge
       volumes:
         - name: rootdisk
           persistentVolumeClaim:
