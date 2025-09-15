@@ -58,6 +58,6 @@ spec:
                 storage: 40Gi
             storageClassName: ubuntu-24-encrypted   # Adjust to your storage class
             dataSource:
-              kind: PersistentVolumeClaim
+              kind: HarvesterImage
               name: ubuntu-24-encrypted
               namespace: default
