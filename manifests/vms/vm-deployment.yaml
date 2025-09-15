@@ -27,10 +27,12 @@ spec:
               disk:
                 bus: virtio
           interfaces:
-            - name: default
-              masquerade: {}
-            - name: mgmt-nic
-              bridge: {}
+            - bridge: {}
+              model: virtio
+              name: default
+            - masquerade: {}
+              model: virtio
+              name: mgmt-nic
       networks:
         - multus:
             networkName: default/vm-network
