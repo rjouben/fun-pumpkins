@@ -4,10 +4,8 @@ kind: VirtualMachine
 metadata:
   labels:
     harvesterhci.io/creator: harvester
-    harvesterhci.io/os: ''
   name: my-fleet-vm
   namespace: default
-
 spec:
   runStrategy: RerunOnFailure
   template:
@@ -44,7 +42,7 @@ spec:
           guest: 4Gi
         resources:
           limits:
-            cpu: '2'
+            cpu: 2
             memory: 4Gi
           requests:
             cpu: 125m
@@ -65,7 +63,7 @@ spec:
             - name: rjouben
               sudo: ALL=(ALL) NOPASSWD:ALL
               ssh_authorized_keys:
-              - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2
+              - 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2'
   dataVolumeTemplates:
   - metadata:
       name: fleet-vm-01-disk
@@ -78,5 +76,5 @@ spec:
             storage: 20Gi
       sourceRef:
         kind: HarvesterImage
-        name: ubuntu-24 # Replace with your imported image name
-        namespace: default # Or the namespace of your image
+        name: ubuntu-24
+        namespace: default
