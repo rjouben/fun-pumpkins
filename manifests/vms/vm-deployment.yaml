@@ -1,20 +1,23 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
-  name: basic-fleet-vm
-  namespace: default
+  name: fleet-vm
+  namespace: vm-production
   labels:
-    app: basic-fleet-vm
+    app: fleet-vm
 spec:
-  running: true
+  runStrategy: RunAlways
   template:
     metadata:
       labels:
-        kubevirt.io/domain: basic-fleet-vm
+        kubevirt.io/domain: fleet-vm
     spec:
       domain:
         cpu:
           cores: 2
+        resources:
+          requests:
+            memory: 4Gi
         devices:
           disks:
             - name: rootdisk
@@ -24,62 +27,37 @@ spec:
               disk:
                 bus: virtio
           interfaces:
-          - name: default
-            masquerade: {}
-        resources:
-          requests:
-            memory: 4Gi
+            - name: default
+              masquerade: {}
+      networks:
+        - name: default
+          pod: {}
       volumes:
         - name: rootdisk
-          dataVolume:
-            name: basic-vm-rootdisk
+          persistentVolumeClaim:
+            claimName: fleet-vm-rootdisk
         - name: cloudinitdisk
           cloudInitNoCloud:
-            # cloud-init: sets up default user, ssh key, hostname, and basic firstboot commands
             userData: |
               #cloud-config
-              hostname: basic-vm
-              fqdn: fleet-vm.fun-pumplins.net
-              manage_etc_hosts: true
+              hostname: fleet-vm
               users:
                 - name: rjouben
                   sudo: ALL=(ALL) NOPASSWD:ALL
-                  shell: /bin/bash
-                  lock_passwd: false
-                  # REPLACE_ME: put your public SSH key here (single-line)
                   ssh_authorized_keys:
                     - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2"
-              ssh_pwauth: false
-              timezone: UTC
               package_update: true
               package_upgrade: true
-              runcmd:
-                - [ sh, -c, "echo 'cloud-init finished' >> /var/log/cloud-init.log" ]
-      networks:
-      - name: default
-        pod: {}
----
-# ========== DATA VOLUME (root disk) ==========
-# This DataVolume imports/uses an existing PVC (e.g. a Harvester-uploaded image).
-# Replace namespace/name with the PVC created by Harvester (or change source to http/registry if appropriate).
-apiVersion: cdi.kubevirt.io/v1beta1
-kind: DataVolume
-metadata:
-  name: basic-vm-rootdisk
-  namespace: default
-  labels:
-    app: basic-fleet-vm
-spec:
-  # If your image is already an existing PVC in harvester-public (typical), use the pvc source.
-  source:
-    pvc:
-      namespace: default         # REPLACE_ME: namespace where Harvester stores uploaded images (common: harvester-public)
-      name: ubuntu-24-encrypted # REPLACE_ME: name of the PVC that contains your image
-  pvc:
-    accessModes:
-      - ReadWriteOnce
-    resources:
-      requests:
-        storage: 40Gi                      # root disk size for the VM (adjust)
-    # storageClassName: longhorn            # optionally set storage class; uncomment & change if needed
----
+  volumeClaimTemplates:
+    - metadata:
+        name: basic-vm-rootdisk
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 40Gi
+        storageClassName: harvester-longhorn   # Adjust to your storage class
+        dataSource:
+          kind: PersistentVolumeClaim
+          name: ubuntu-24-encrypted
+          namespace: default
