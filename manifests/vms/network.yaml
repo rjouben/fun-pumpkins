@@ -1,8 +1,8 @@
 apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
-  name: vlan-100-bridge
-  namespace: vm-production
+  name: vlan-bridge
+  namespace: default
 spec:
   config: |-
     {
