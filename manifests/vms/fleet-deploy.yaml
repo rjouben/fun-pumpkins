@@ -79,4 +79,4 @@ spec:
       sourceRef:
         kind: HarvesterImage
         name: ubuntu-24 # Replace with your imported image name
-        namespace: "default" # Or the namespace of your image
+        namespace: default # Or the namespace of your image
