@@ -26,7 +26,7 @@ spec:
             - bootOrder: 1
               disk:
                 bus: virtio
-              name: disk-1
+              name: vm-disk-01
           inputs:
             - bus: usb
               name: tablet
