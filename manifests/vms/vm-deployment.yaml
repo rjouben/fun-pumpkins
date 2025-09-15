@@ -50,7 +50,7 @@ spec:
               package_upgrade: true
       volumeClaimTemplates:
         - metadata:
-            name: basic-vm-rootdisk
+            name: fleet-vm-rootdisk
           spec:
             accessModes: ["ReadWriteOnce"]
             resources:
