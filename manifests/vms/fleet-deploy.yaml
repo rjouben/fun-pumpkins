@@ -56,8 +56,6 @@ spec:
         - multus:
             networkName: default/vm-network
           name: default
-        - name: mgmt-nic
-          pod: {}
       volumes:
         - name: disk-1
           volumeSource:
