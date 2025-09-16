@@ -63,8 +63,8 @@ spec:
             resources:
               requests:
                 storage: 40Gi
-            storageClassName: ubuntu-24-encrypted
+            storageClassName: harvester-longhorn
             dataSource:
               kind: HarvesterImage
-              name: ubuntu-24-encrypted         # Harvester Image name
+              name: ubuntu-24        # Harvester Image name
               namespace: default
