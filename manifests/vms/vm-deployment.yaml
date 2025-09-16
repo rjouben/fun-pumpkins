@@ -16,7 +16,7 @@ spec:
         cpu:
           cores: 2
           sockets: 1
-          threads: 1          
+          threads: 1
         resources:
           requests:
             memory: 4Gi
@@ -31,11 +31,11 @@ spec:
           interfaces:
             - bridge: {}
               model: virtio
-              name: vm-network
+              name: default
       networks:
         - multus:
             networkName: default/vm-network
-          name: vm-network
+          name: default
       volumes:
         - name: fleet-vm-disk-0
           persistentVolumeClaim:
@@ -60,8 +60,8 @@ spec:
         resources:
           requests:
             storage: 40Gi
-        storageClassName: ubuntu-24-encrypted 
+        storageClassName: ubuntu-24-encrypted
         dataSource:
-          kind: HarvesterImage
-          name: ubuntu-24-encrypted        # Harvester Image name
-          namespace: default
+          kind: VirtualMachineImage
+          apiGroup: harvesterhci.io
+          name: ubuntu-24-encrypted
