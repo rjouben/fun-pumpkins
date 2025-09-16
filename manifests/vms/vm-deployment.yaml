@@ -31,10 +31,7 @@ spec:
           interfaces:
             - bridge: {}
               model: virtio
-              name: default
-            - masquerade: {}
-              model: virtio
-              name: mgmt-nic
+              name: vm-network
       networks:
         - multus:
             networkName: default/vm-network
