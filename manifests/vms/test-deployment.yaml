@@ -17,7 +17,7 @@ spec:
           interfaces:
             - name: default
               model: virtio
-              masquerade: {}
+              bridge: {}
         machine:
           type: q35
         resources:
@@ -26,6 +26,9 @@ spec:
           limits:
             cpu: 2
             memory: "4Gi"
-        networks:
-          - name: vm-network
-            pod: {}
+      networks:
+        - multus:
+            networkName: default/vm-network
+          name: default
+        - name: mgmt-nic
+          pod: {}
