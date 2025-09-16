@@ -25,7 +25,7 @@ spec:
               disk:
                 bus: virtio
       networks:
-        - name: default
+        - name: vm-network
           pod: {}
       volumes:
         - name: rootdisk
