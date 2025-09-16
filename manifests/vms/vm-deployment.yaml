@@ -22,7 +22,7 @@ spec:
             memory: 4Gi
         devices:
           disks:
-            - name: rootdisk
+            - name: fleet-vm-disk-0
               disk:
                 bus: virtio
             - name: cloudinitdisk
@@ -35,7 +35,7 @@ spec:
       networks:
         - multus:
             networkName: default/vm-network
-          name: default
+          name: vm-network
       volumes:
         - name: fleet-vm-disk-0
           persistentVolumeClaim:
