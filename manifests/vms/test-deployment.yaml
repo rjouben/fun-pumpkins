@@ -15,9 +15,9 @@ spec:
         devices:
           disks: []
           interfaces:
-            - name: default
+            - bridge: {}
               model: virtio
-              bridge: {}
+              name: default
         machine:
           type: q35
         resources:
@@ -30,5 +30,4 @@ spec:
         - multus:
             networkName: default/vm-network
           name: default
-        - name: mgmt-nic
           pod: {}
