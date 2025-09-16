@@ -17,7 +17,7 @@ spec:
           interfaces:
             - bridge: {}
               model: virtio
-              name: default
+              name: vm-network
         machine:
           type: q35
         resources:
