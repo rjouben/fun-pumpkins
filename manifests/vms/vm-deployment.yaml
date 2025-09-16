@@ -52,16 +52,17 @@ spec:
                     - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2"
               package_update: true
               package_upgrade: true
-  volumeClaimTemplates:
+  dataVolumeTemplates:
     - metadata:
         name: fleet-vm-disk-0
       spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 40Gi
-        storageClassName: ubuntu-24-encrypted
-        dataSource:
+        sourceRef:
           kind: VirtualMachineImage
           apiGroup: harvesterhci.io
-          name: ubuntu-24-encrypted
+          name: ubuntu-24-encrypted   # Harvester Image name
+        pvc:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 40Gi
+          storageClassName: ubuntu-24-encrypted
