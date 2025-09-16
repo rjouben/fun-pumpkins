@@ -1,61 +1,95 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
-  name: test-vm
-  namespace: harvester-public
+  name: new-vm
+  namespace: default
 spec:
-  running: true
+  runStrategy: RerunOnFailure
   template:
-    metadata:
-      labels:
-        kubevirt.io/domain: test-vm
     spec:
       domain:
         cpu:
           cores: 2
-        resources:
-          requests:
-            memory: 2Gi
+          sockets: 1
+          threads: 1
+        memory: "3996Mi"
         devices:
-          disks:
-            - name: rootdisk
-              disk:
-                bus: virtio
-            - name: cloudinitdisk
-              disk:
-                bus: virtio
+          disks: []
           interfaces:
             - name: default
-              masquerade: {}          # Pod network
-      networks:
-        - name: default             # Must match interface name above
-          pod: {}                   # Use pod network                
-      volumes:
-        - name: rootdisk
-          persistentVolumeClaim:
-            claimName: test-vm-rootdisk   # must match template below
-        - name: cloudinitdisk
-          cloudInitNoCloud:
-            userData: |
-              #cloud-config
-              hostname: test-vm
-              users:
-                - name: rjouben
-                  sudo: ALL=(ALL) NOPASSWD:ALL
-                  ssh_authorized_keys:
-                    - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2"
-              package_update: true
-              package_upgrade: true
-  volumeClaimTemplates:   # <— must be sibling of template
-    - metadata:
-        name: test-vm-rootdisk
-      spec:
-        accessModes: ["ReadWriteMany"]
+              model: virtio
+              masquerade: {}
+        machine:
+          type: q35
         resources:
           requests:
-            storage: 20Gi
-        storageClassName: harvester-longhorn
-        dataSource:
-          kind: HarvesterImage
-          name: ubuntu-24       # replace with your Harvester image name
-          namespace: default
+            cpu: "125m"
+            memory: "2730Mi"
+          limits:
+            cpu: 2
+            memory: "4Gi"
+        networks:
+          - name: default
+            pod: {}
+
+# apiVersion: kubevirt.io/v1
+# kind: VirtualMachine
+# metadata:
+#   name: test-vm
+#   namespace: harvester-public
+# spec:
+#   running: true
+#   template:
+#     metadata:
+#       labels:
+#         kubevirt.io/domain: test-vm
+#     spec:
+#       domain:
+#         cpu:
+#           cores: 2
+#         resources:
+#           requests:
+#             memory: 2Gi
+#         devices:
+#           disks:
+#             - name: rootdisk
+#               disk:
+#                 bus: virtio
+#             - name: cloudinitdisk
+#               disk:
+#                 bus: virtio
+#           interfaces:
+#             - name: default
+#               masquerade: {}          # Pod network
+#       networks:
+#         - name: default             # Must match interface name above
+#           pod: {}                   # Use pod network                
+#       volumes:
+#         - name: rootdisk
+#           persistentVolumeClaim:
+#             claimName: test-vm-rootdisk   # must match template below
+#         - name: cloudinitdisk
+#           cloudInitNoCloud:
+#             userData: |
+#               #cloud-config
+#               hostname: test-vm
+#               users:
+#                 - name: rjouben
+#                   sudo: ALL=(ALL) NOPASSWD:ALL
+#                   ssh_authorized_keys:
+#                     - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2"
+#               package_update: true
+#               package_upgrade: true
+#   volumeClaimTemplates:   # <— must be sibling of template
+#     - metadata:
+#         name: test-vm-rootdisk
+#       spec:
+#         accessModes: ["ReadWriteMany"]
+#         resources:
+#           requests:
+#             storage: 20Gi
+#         storageClassName: harvester-longhorn
+#         dataSource:
+#           kind: HarvesterImage
+#           name: ubuntu-24       # replace with your Harvester image name
+#           namespace: default
