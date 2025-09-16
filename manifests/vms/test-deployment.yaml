@@ -24,9 +24,12 @@ spec:
             - name: cloudinitdisk
               disk:
                 bus: virtio
+          interfaces:
+            - name: default
+              masquerade: {}          # Pod network
       networks:
-        - name: vm-network
-          pod: {}
+        - name: default             # Must match interface name above
+          pod: {}                   # Use pod network                
       volumes:
         - name: rootdisk
           persistentVolumeClaim:
