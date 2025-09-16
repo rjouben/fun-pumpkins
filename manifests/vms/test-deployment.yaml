@@ -27,5 +27,5 @@ spec:
             cpu: 2
             memory: "4Gi"
         networks:
-          - name: default
+          - name: vm-network
             pod: {}
