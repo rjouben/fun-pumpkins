@@ -1,16 +1,11 @@
-apiVersion: kubevirt.io/v1
+apiVersion: harvesterhci.io/v1alpha1
 kind: VirtualMachine
 metadata:
   name: fleet-app-vm
   namespace: default
-  labels:
-    app: fleet-app-vm
 spec:
-  running: true
+  runStrategy: RerunOnFailure
   template:
-    metadata:
-      labels:
-        kubevirt.io/domain: fleet-app-vm
     spec:
       domain:
         cpu:
@@ -31,15 +26,15 @@ spec:
           interfaces:
             - bridge: {}
               model: virtio
-              name: default
+              name: vm-network
       networks:
         - multus:
             networkName: default/vm-network
-          name: default
+          name: vm-network
       volumes:
         - name: fleet-vm-disk-0
-          persistentVolumeClaim:
-            claimName: fleet-vm-disk-0
+          dataVolume:
+            name: fleet-vm-disk-0
         - name: cloudinitdisk
           cloudInitNoCloud:
             userData: |
@@ -56,10 +51,9 @@ spec:
     - metadata:
         name: fleet-vm-disk-0
       spec:
-        sourceRef:
-          kind: VirtualMachineImage
-          apiGroup: harvesterhci.io
-          name: ubuntu-24-encrypted   # Harvester Image name
+        source:
+          virtualMachineImage:
+            name: ubuntu-24-encrypted
         pvc:
           accessModes: ["ReadWriteOnce"]
           resources:
