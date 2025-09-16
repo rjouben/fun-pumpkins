@@ -1,20 +1,22 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
-  name: basic-vm
+  name: fleet-app-vm
   namespace: default
   labels:
-    app: basic-vm
+    app: fleet-app-vm
 spec:
   running: true
   template:
     metadata:
       labels:
-        kubevirt.io/domain: basic-vm
+        kubevirt.io/domain: fleet-app-vm
     spec:
       domain:
         cpu:
           cores: 2
+          sockets: 1
+          threads: 1          
         resources:
           requests:
             memory: 4Gi
@@ -37,17 +39,15 @@ spec:
         - multus:
             networkName: default/vm-network
           name: default
-        - name: mgmt-nic
-          pod: {}
       volumes:
-        - name: rootdisk
+        - name: fleet-vm-disk-0
           persistentVolumeClaim:
-            claimName: basic-vm-rootdisk
+            claimName: fleet-vm-disk-0
         - name: cloudinitdisk
           cloudInitNoCloud:
             userData: |
               #cloud-config
-              hostname: basic-vm
+              hostname: fleet-app-vm
               users:
                 - name: rjouben
                   sudo: ALL=(ALL) NOPASSWD:ALL
@@ -57,14 +57,14 @@ spec:
               package_upgrade: true
   volumeClaimTemplates:
     - metadata:
-        name: basic-vm-rootdisk
+        name: fleet-vm-disk-0
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
             storage: 40Gi
-        storageClassName: harvester-longhorn
+        storageClassName: ubuntu-24-encrypted 
         dataSource:
           kind: HarvesterImage
-          name: ubuntu-24        # Harvester Image name
+          name: ubuntu-24-encrypted        # Harvester Image name
           namespace: default
