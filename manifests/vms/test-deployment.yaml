@@ -12,7 +12,6 @@ spec:
           cores: 2
           sockets: 1
           threads: 1
-        memory: "3996Mi"
         devices:
           disks: []
           interfaces:
@@ -23,8 +22,7 @@ spec:
           type: q35
         resources:
           requests:
-            cpu: "125m"
-            memory: "2730Mi"
+            memory: 4G
           limits:
             cpu: 2
             memory: "4Gi"
