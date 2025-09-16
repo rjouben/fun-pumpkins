@@ -50,7 +50,7 @@ spec:
     - metadata:
         name: test-vm-rootdisk
       spec:
-        accessModes: ["ReadWriteOnce"]
+        accessModes: ["ReadWriteMany"]
         resources:
           requests:
             storage: 20Gi
@@ -58,4 +58,4 @@ spec:
         dataSource:
           kind: HarvesterImage
           name: ubuntu-24       # replace with your Harvester image name
-          namespace: harvester-public
+          namespace: default
