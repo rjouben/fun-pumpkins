@@ -1,4 +1,4 @@
-apiVersion: harvesterhci.io/v1alpha1
+apiVersion: harvesterhci.io/v1beta1
 kind: VirtualMachine
 metadata:
   name: fleet-app-vm
