@@ -60,4 +60,4 @@ spec:
           resources:
             requests:
               storage: 40Gi
-          storageClassName: ubuntu-24-encrypted
+          storageClassName: longhorn-image-8h9j9
