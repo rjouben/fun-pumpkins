@@ -61,9 +61,11 @@ spec:
             namespace: default
             name: app-vm-02-disk-1-txn2p   # 👈 replace with the PVC name of your cloned image
         pvc:
-          accessModes: ["ReadWriteOnce"]
+          accessModes: 
+            - ReadWriteOnce
           resources:
             requests:
-              storage: 40Gi
+              storage: 10Gi
           storageClassName: ubuntu-24-encrypted
           volumeMode: Block
+        cloneStrategy: host        
