@@ -53,6 +53,8 @@ spec:
   dataVolumeTemplates:
     - metadata:
         name: fleet-vm-disk-0
+        annotations:
+          cdi.kubevirt.io/cloneType: host   # Force host-assisted clon        
       spec:
         source:
           pvc:                      # 👈 clone from existing PVC (the cloned Harvester image)
