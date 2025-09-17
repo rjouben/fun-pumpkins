@@ -17,7 +17,7 @@ spec:
             memory: 4Gi
         devices:
           disks:
-            - name: fleet-vm-disk-0
+            - name: rootdisk
               disk:
                 bus: virtio
               # Use containerDisk to boot from Harvester uploaded image
