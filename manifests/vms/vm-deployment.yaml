@@ -55,8 +55,9 @@ spec:
         name: fleet-vm-disk-0
       spec:
         source:
-          virtualMachineImage:
-            name: ubuntu-24-encrypted
+          pvc:                      # 👈 clone from existing PVC (the cloned Harvester image)
+            namespace: default
+            name: app-vm-02-disk-1-txn2p   # 👈 replace with the PVC name of your cloned image
         pvc:
           accessModes: ["ReadWriteOnce"]
           resources:
