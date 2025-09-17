@@ -53,27 +53,42 @@ spec:
   dataVolumeTemplates:
     - metadata:
         name: fleet-vm-disk-0
-        annotations:
-          cdi.kubevirt.io/cloneType: host   # Force host-assisted clon        
       spec:
         source:
-          # OR better if using Harvester image:
-        #  pvc: null
-        #  http: null
-        # sourceRef:
-          # kind: VirtualMachineImage
-          # apiGroup: harvesterhci.io
-          # name: ubuntu-24  
-         source:
-           pvc:                      # 👈 clone from existing PVC (the cloned Harvester image)
-             namespace: default
-             name: vmi-124b33ee-1dd7-46be-aab7-4a3a447f4f78   # 👈 replace with the PVC name of your cloned image
+          pvc:
+            namespace: default
+            name: ubuntu-24   # <-- This must be the PVC created by your uploaded image
         pvc:
-          accessModes: 
-            - ReadWriteOnce
+          accessModes: ["ReadWriteOnce"]
           resources:
             requests:
               storage: 10Gi
-          storageClassName: ubuntu-24-encrypted
-          volumeMode: Block
-        cloneStrategy: host        
+          storageClassName: fleet-app-vms
+        
+  # dataVolumeTemplates:
+  #   - metadata:
+  #       name: fleet-vm-disk-0
+  #       annotations:
+  #         cdi.kubevirt.io/cloneType: host   # Force host-assisted clon        
+  #     spec:
+  #       source:
+  #         # OR better if using Harvester image:
+  #       #  pvc: null
+  #       #  http: null
+  #       # sourceRef:
+  #         # kind: VirtualMachineImage
+  #         # apiGroup: harvesterhci.io
+  #         # name: ubuntu-24  
+  #        source:
+  #          pvc:                      # 👈 clone from existing PVC (the cloned Harvester image)
+  #            namespace: default
+  #            name: vmi-124b33ee-1dd7-46be-aab7-4a3a447f4f78   # 👈 replace with the PVC name of your cloned image
+  #       pvc:
+  #         accessModes: 
+  #           - ReadWriteOnce
+  #         resources:
+  #           requests:
+  #             storage: 10Gi
+  #         storageClassName: ubuntu-24-encrypted
+  #         volumeMode: Block
+  #       cloneStrategy: host        
