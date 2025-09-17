@@ -57,13 +57,13 @@ spec:
         source:
           pvc:
             namespace: default
-            name: ubuntu-24   # <-- This must be the PVC created by your uploaded image
+            name: ubuntu-24   # This PVC comes from the VMImage
         pvc:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
               storage: 10Gi
-          storageClassName: fleet-app-vms
+          storageClassName: longhorn-ubuntu-24
         
   # dataVolumeTemplates:
   #   - metadata:
