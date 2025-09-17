@@ -57,9 +57,17 @@ spec:
           cdi.kubevirt.io/cloneType: host   # Force host-assisted clon        
       spec:
         source:
-          pvc:                      # 👈 clone from existing PVC (the cloned Harvester image)
-            namespace: default
-            name: app-vm-02-disk-1-txn2p   # 👈 replace with the PVC name of your cloned image
+          # OR better if using Harvester image:
+          pvc: null
+          http: null
+        sourceRef:
+          kind: VirtualMachineImage
+          apiGroup: harvesterhci.io
+          name: ubuntu-24-encrypted      
+        # source:
+        #   pvc:                      # 👈 clone from existing PVC (the cloned Harvester image)
+        #     namespace: default
+        #     name: app-vm-02-disk-1-txn2p   # 👈 replace with the PVC name of your cloned image
         pvc:
           accessModes: 
             - ReadWriteMany
