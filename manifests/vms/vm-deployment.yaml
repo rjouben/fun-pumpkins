@@ -64,3 +64,4 @@ spec:
             requests:
               storage: 40Gi
           storageClassName: ubuntu-24-encrypted
+          volumeMode: Block
