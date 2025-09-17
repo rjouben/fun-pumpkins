@@ -4,7 +4,7 @@ metadata:
   name: fleet-app-vm
   namespace: default
 spec:
-  running: false             # start manually after DV is ready
+  running: true
   template:
     metadata:
       labels:
@@ -13,8 +13,6 @@ spec:
       domain:
         cpu:
           cores: 2
-          sockets: 1
-          threads: 1
         resources:
           requests:
             memory: 4Gi
@@ -28,11 +26,12 @@ spec:
                 bus: virtio
           interfaces:
             - bridge: {}
-              name: vm-network
+              model: virtio
+              name: default
       networks:
         - multus:
             networkName: default/vm-network
-          name: vm-network
+          name: default
       volumes:
         - name: fleet-vm-disk-0
           dataVolume:
@@ -49,14 +48,14 @@ spec:
                     - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2"
               package_update: true
               package_upgrade: true
-
   dataVolumeTemplates:
     - metadata:
         name: fleet-vm-disk-0
       spec:
-        source:
-          virtualMachineImage:
-            name: ubuntu-24-encrypted
+        sourceRef:
+          kind: VirtualMachineImage
+          apiGroup: harvesterhci.io
+          name: ubuntu-24-encrypted   # Harvester Image name
         pvc:
           accessModes: ["ReadWriteOnce"]
           resources:
