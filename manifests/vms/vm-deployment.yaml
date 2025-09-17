@@ -62,7 +62,7 @@ spec:
             name: app-vm-02-disk-1-txn2p   # 👈 replace with the PVC name of your cloned image
         pvc:
           accessModes: 
-            - ReadWriteOnce
+            - ReadWriteMany
           resources:
             requests:
               storage: 10Gi
