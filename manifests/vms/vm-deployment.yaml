@@ -20,6 +20,10 @@ spec:
             - name: fleet-vm-disk-0
               disk:
                 bus: virtio
+              # Use containerDisk to boot from Harvester uploaded image
+              # Replace <harvester-image-name> with the actual image name
+              containerDisk:
+                image: ubuntu-24
             - name: cloudinitdisk
               disk:
                 bus: virtio
