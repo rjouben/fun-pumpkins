@@ -1,4 +1,4 @@
-apiVersion: harvesterhci.io/v1beta1
+apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
   name: fleet-app-vm
@@ -52,8 +52,9 @@ spec:
         name: fleet-vm-disk-0
       spec:
         source:
-          virtualMachineImage:
-            name: ubuntu-24-encrypted
+          pvc:
+            namespace: default
+            name: app-vm-01-disk-0-tyw2n
         pvc:
           accessModes: ["ReadWriteOnce"]
           resources:
