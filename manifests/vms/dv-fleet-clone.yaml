@@ -8,7 +8,9 @@ spec:
     pvc:
       # name: image-8h9j9
       # name: vmi-124b33ee-1dd7-46be-aab7-4a3a447f4f78
-      name: ubuntu-24
+      # name: ubuntu-24
+      # name: vmi-baa7acbd-2883-4cdf-8aa8-d935d6a032b4 # ubuntu-24-encrypted
+      name: vmi-baa7acbd-2883-4cdf-8aa8-d935d6a032b4 # ubuntu-24
       namespace: default
   pvc:
     accessModes:
