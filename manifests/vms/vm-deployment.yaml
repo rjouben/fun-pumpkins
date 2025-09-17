@@ -63,7 +63,7 @@ spec:
         sourceRef:
           kind: VirtualMachineImage
           apiGroup: harvesterhci.io
-          name: ubuntu-24-encrypted      
+          name: ubuntu-24  
         # source:
         #   pvc:                      # 👈 clone from existing PVC (the cloned Harvester image)
         #     namespace: default
