@@ -4,8 +4,12 @@ metadata:
   name: fleet-app-vm
   namespace: default
 spec:
-  runStrategy: RerunOnFailure
+  running: false             # start manually after DV is ready
+  runStrategy: Manual
   template:
+    metadata:
+      labels:
+        kubevirt.io/domain: fleet-app-vm
     spec:
       domain:
         cpu:
@@ -17,28 +21,23 @@ spec:
             memory: 4Gi
         devices:
           disks:
-            - name: rootdisk
+            - name: fleet-vm-disk-0
               disk:
                 bus: virtio
-              # Use containerDisk to boot from Harvester uploaded image
-              # Replace <harvester-image-name> with the actual image name
-              containerDisk:
-                image: ubuntu-24
             - name: cloudinitdisk
               disk:
                 bus: virtio
           interfaces:
             - bridge: {}
-              model: virtio
               name: vm-network
       networks:
         - multus:
             networkName: default/vm-network
           name: vm-network
       volumes:
-        # - name: fleet-vm-disk-0
-        #   persistentVolumeClaim:
-        #     claimName: fleet-vm-disk-0   # 👈 direct PVC
+        - name: fleet-vm-disk-0
+          dataVolume:
+            name: fleet-vm-disk-0
         - name: cloudinitdisk
           cloudInitNoCloud:
             userData: |
@@ -51,17 +50,17 @@ spec:
                     - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2"
               package_update: true
               package_upgrade: true
-  # dataVolumeTemplates:
-  #   - metadata:
-  #       name: fleet-vm-disk-0
-  #     spec:
-  #       source:
-  #         pvc:
-  #           namespace: default
-  #           name: app-vm-01-disk-0-tyw2n
-  #       pvc:
-  #         accessModes: ["ReadWriteOnce"]
-  #         resources:
-  #           requests:
-  #             storage: 40Gi
-  #         storageClassName: longhorn-image-8h9j9
+
+  dataVolumeTemplates:
+    - metadata:
+        name: fleet-vm-disk-0
+      spec:
+        source:
+          virtualMachineImage:
+            name: ubuntu-24-encrypted
+        pvc:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 40Gi
+          storageClassName: ubuntu-24-encrypted
