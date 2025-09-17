@@ -2,7 +2,7 @@ apiVersion: cdi.kubevirt.io/v1beta1
 kind: DataVolume
 metadata:
   name: fleet-vm-disk-0
-  namespace: fleet-app-vms
+  namespace: default
 spec:
   source:
     pvc:
