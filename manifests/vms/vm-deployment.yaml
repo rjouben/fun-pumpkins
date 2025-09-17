@@ -5,7 +5,6 @@ metadata:
   namespace: default
 spec:
   running: false             # start manually after DV is ready
-  runStrategy: Manual
   template:
     metadata:
       labels:
