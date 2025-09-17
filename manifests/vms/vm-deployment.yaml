@@ -34,7 +34,7 @@ spec:
       volumes:
         - name: fleet-vm-disk-0
           persistentVolumeClaim:
-            claimName: app-vm-01-disk-0-tyw2n   # 👈 direct PVC
+            claimName: fleet-vm-disk-0   # 👈 direct PVC
         - name: cloudinitdisk
           cloudInitNoCloud:
             userData: |
