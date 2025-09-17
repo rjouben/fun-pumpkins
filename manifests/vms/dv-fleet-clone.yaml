@@ -1,0 +1,20 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: fleet-vm-disk-0
+  namespace: default
+spec:
+  source:
+    pvc:
+      name: image-8h9j9
+      # name: vmi-124b33ee-1dd7-46be-aab7-4a3a447f4f78
+      namespace: longhorn=system
+  pvc:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 40Gi
+    storageClassName: ubuntu-24-encrypted   # keep the same as source
+    volumeMode: Block
+  cloneStrategy: host   # force host-assisted clone
