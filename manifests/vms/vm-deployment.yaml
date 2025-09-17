@@ -33,8 +33,8 @@ spec:
           name: vm-network
       volumes:
         - name: fleet-vm-disk-0
-          dataVolume:
-            name: fleet-vm-disk-0
+          persistentVolumeClaim:
+            claimName: ubuntu-24-encrypted   # 👈 direct PVC
         - name: cloudinitdisk
           cloudInitNoCloud:
             userData: |
@@ -47,17 +47,17 @@ spec:
                     - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2"
               package_update: true
               package_upgrade: true
-  dataVolumeTemplates:
-    - metadata:
-        name: fleet-vm-disk-0
-      spec:
-        source:
-          pvc:
-            namespace: default
-            name: app-vm-01-disk-0-tyw2n
-        pvc:
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 40Gi
-          storageClassName: longhorn-image-8h9j9
+  # dataVolumeTemplates:
+  #   - metadata:
+  #       name: fleet-vm-disk-0
+  #     spec:
+  #       source:
+  #         pvc:
+  #           namespace: default
+  #           name: app-vm-01-disk-0-tyw2n
+  #       pvc:
+  #         accessModes: ["ReadWriteOnce"]
+  #         resources:
+  #           requests:
+  #             storage: 40Gi
+  #         storageClassName: longhorn-image-8h9j9
