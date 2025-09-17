@@ -34,7 +34,7 @@ spec:
       volumes:
         - name: fleet-vm-disk-0
           persistentVolumeClaim:
-            claimName: ubuntu-24-encrypted   # 👈 direct PVC
+            claimName: app-vm-01-disk-0-tyw2n   # 👈 direct PVC
         - name: cloudinitdisk
           cloudInitNoCloud:
             userData: |
