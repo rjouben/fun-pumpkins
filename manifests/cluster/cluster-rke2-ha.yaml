@@ -1,0 +1,27 @@
+apiVersion: provisioning.cattle.io/v1
+kind: Cluster
+metadata:
+  name: rke2-ha
+  namespace: fleet-local
+spec:
+  # request a specific RKE2 version (adjust as needed)
+  kubernetesVersion: "v1.30.2+rke2r1"
+  # CNI choice (canal/calico/none depending on your preference)
+  cni: canal
+  # reference to the cloud credential secret in the same namespace
+  cloudCredentialSecretName: cc-lvtq2
+  # RKE specific configuration
+  rkeConfig:
+    machinePools:
+      - name: controlplane
+        quantity: 3                # 3 nodes -> HA (each node is etcd + control-plane + worker)
+        etcdRole: true
+        controlPlaneRole: true
+        workerRole: true
+        machineConfigRef:
+          kind: HarvesterConfig
+          name: rke2-ha-node
+    # optional: cluster-wide options (tweak as needed)
+    kubeAPI:
+      serviceNodePortRange: "30000-32767"
+    systemDefaultRegistry: ""

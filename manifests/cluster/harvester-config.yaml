@@ -1,0 +1,29 @@
+apiVersion: provisioning.cattle.io/v1
+kind: HarvesterConfig
+metadata:
+  name: rke2-ha-node
+  namespace: fleet-local
+spec:
+  # VM image available in Harvester
+  imageName: ubuntu-24
+  # network to attach VMs to
+  networkName: default
+  # VM hardware sizing - tune for your workload
+  cpuCount: 2
+  memorySize: 4096Mi
+  diskSize: 40Gi
+  sshUser: rancher
+  cloudInit:
+    userData: |
+      #cloud-config
+      users:
+        - name: rancher
+          sudo: ALL=(ALL) NOPASSWD:ALL
+          shell: /bin/bash
+          ssh-authorized-keys:
+            - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2"
+      package_update: true
+      package_upgrade: true
+      runcmd:
+        # any node-level tuning you want to run after boot (examples)
+        - [ sh, -c, "sysctl -w net.bridge.bridge-nf-call-iptables=1" ]
