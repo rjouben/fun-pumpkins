@@ -7,11 +7,11 @@ spec:
   # VM image available in Harvester
   imageName: ubuntu-24
   # network to attach VMs to
-  networkName: default
+  networkName: vm-network
   # VM hardware sizing - tune for your workload
   cpuCount: 2
   memorySize: 4096Mi
-  diskSize: 40Gi
+  diskSize: 20Gi
   sshUser: rancher
   cloudInit:
     userData: |
