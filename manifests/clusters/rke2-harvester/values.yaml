@@ -17,5 +17,5 @@ machineConfig:
   memory: 4Gi
   diskSize: 20Gi
   imageName: ubuntu-24
-  networkName: harvester-public
+  networkName: vm-network
   sshUser: ubuntu
