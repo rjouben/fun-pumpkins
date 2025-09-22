@@ -1,5 +1,5 @@
-apiVersion: harvester.cattle.io/v1alpha1
-kind: HarvesterMachineConfig
+apiVersion: rke-machine-config.cattle.io/v1
+kind: HarvesterConfig
 metadata:
   name: {{ default "default-harvester-node" .Values.machinePool.configName }}
   namespace: fleet-default
