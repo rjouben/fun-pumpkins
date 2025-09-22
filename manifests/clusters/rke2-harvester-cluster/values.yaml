@@ -4,7 +4,7 @@ cloudCredentialSecret: harvester-cloud-credential
 
 machinePool:
   name: rke2-pool
-  quantity: 3
+  quantity: 1
   roles:
     controlPlane: true
     etcd: true
