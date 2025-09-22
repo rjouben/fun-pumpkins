@@ -1,21 +1,21 @@
-clusterName: rke2-harvester-cluster
+clusterName: default-harvester-cluster
 kubernetesVersion: v1.30.0+rke2r1
-cloudCredentialSecret: cc-lvtq2	
+cloudCredentialSecret: cc-lvtq2
 
 machinePool:
-  name: rke2-pool
+  name: default-pool
   quantity: 3
   roles:
     controlPlane: true
     etcd: true
     worker: true
-  configName: rke2-harvester-node
+  configName: default-harvester-node
 
 machineConfig:
   namespace: default
   cpu: 2
   memory: 4Gi
-  diskSize: 40Gi
-  imageName: ubuntu-24        # must exist in Harvester
-  networkName: vm-network
+  diskSize: 20Gi
+  imageName: ubuntu-24
+  networkName: harvester-public
   sshUser: ubuntu

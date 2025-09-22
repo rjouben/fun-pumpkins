@@ -25,4 +25,4 @@ spec:
       disable:
         - rke2-ingress-nginx
       cni: canal
-      selinux: true
+      selinux: false
