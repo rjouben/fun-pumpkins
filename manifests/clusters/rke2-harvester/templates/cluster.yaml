@@ -14,7 +14,7 @@ spec:
         etcdRole: {{ .Values.machinePool.roles.etcd }}
         workerRole: {{ .Values.machinePool.roles.worker }}
         machineConfigRef:
-          kind: HarvesterMachineConfig
+          kind: HarvesterConfig
           name: {{ .Values.machinePool.configName }}
     chartValues:
       rke2-coredns:
