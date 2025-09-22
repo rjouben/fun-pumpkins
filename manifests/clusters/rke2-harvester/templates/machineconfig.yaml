@@ -1,7 +1,7 @@
 apiVersion: harvester.cattle.io/v1alpha1
 kind: HarvesterMachineConfig
 metadata:
-  name: {{ .Values.machinePool.configName }}
+  name: {{ default "default-harvester-node" .Values.machinePool.configName }}
   namespace: fleet-default
 spec:
   vmNamespace: {{ .Values.machineConfig.namespace }}

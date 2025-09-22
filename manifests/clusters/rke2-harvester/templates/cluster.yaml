@@ -8,8 +8,8 @@ spec:
   cloudCredentialSecretName: {{ .Values.cloudCredentialSecret }}
   rkeConfig:
     machinePools:
-      - name: {{ .Values.machinePool.name }}
-        quantity: {{ .Values.machinePool.quantity }}
+      - name: {{ default "default-pool" .Values.machinePool.name }}
+        quantity: {{ default 3 .Values.machinePool.quantity }}
         controlPlaneRole: {{ .Values.machinePool.roles.controlPlane }}
         etcdRole: {{ .Values.machinePool.roles.etcd }}
         workerRole: {{ .Values.machinePool.roles.worker }}
