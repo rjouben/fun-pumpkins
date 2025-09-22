@@ -5,7 +5,7 @@ metadata:
   namespace: fleet-default
 spec:
   kubernetesVersion: {{ .Values.kubernetesVersion }}
-  cloudCredentialSecretName: {{ .Values.cloudCredentialSecret }}
+  cloudCredentialSecretName: harvester-cloud-credential
   rkeConfig:
     machinePools:
       - name: {{ .Values.machinePool.name }}
