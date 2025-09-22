@@ -1,6 +1,6 @@
 clusterName: rke2-harvester-cluster
 kubernetesVersion: v1.30.0+rke2r1
-cloudCredentialSecret: cc-92cmd
+cloudCredentialSecret: harvester-cloud-credential
 
 machinePool:
   name: rke2-pool

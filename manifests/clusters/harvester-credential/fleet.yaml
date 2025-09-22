@@ -1,0 +1,6 @@
+defaultNamespace: cattle-global-data
+
+# Fleet applies this secret first
+helm:
+  releaseName: harvester-credential
+  chart: .

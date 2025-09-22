@@ -1,7 +1,0 @@
-defaultNamespace: fleet-default
-
-helm:
-  releaseName: rke2-harvester-cluster
-  chart: .
-  valuesFiles:
-    - values.yaml
