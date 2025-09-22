@@ -1,13 +1,13 @@
 apiVersion: rke-machine-config.cattle.io/v1
 kind: HarvesterConfig
 metadata:
-  name: {{ default "default-harvester-node" .Values.machinePool.configName }}
+  name: {{ .Values.machinePool.configName }}
   namespace: fleet-default
 spec:
-  vmNamespace: {{ .Values.machineConfig.namespace }}
   cpu: {{ .Values.machineConfig.cpu }}
   memory: {{ .Values.machineConfig.memory }}
   diskSize: {{ .Values.machineConfig.diskSize }}
   imageName: {{ .Values.machineConfig.imageName }}
   networkName: {{ .Values.machineConfig.networkName }}
   sshUser: {{ .Values.machineConfig.sshUser }}
+  vmNamespace: {{ .Values.machineConfig.namespace }}

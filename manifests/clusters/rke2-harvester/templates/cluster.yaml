@@ -8,21 +8,16 @@ spec:
   cloudCredentialSecretName: {{ .Values.cloudCredentialSecret }}
   rkeConfig:
     machinePools:
-      - name: {{ default "default-pool" .Values.machinePool.name }}
-        quantity: {{ default 3 .Values.machinePool.quantity }}
+      - name: {{ .Values.machinePool.name }}
+        quantity: {{ .Values.machinePool.quantity }}
         controlPlaneRole: {{ .Values.machinePool.roles.controlPlane }}
         etcdRole: {{ .Values.machinePool.roles.etcd }}
         workerRole: {{ .Values.machinePool.roles.worker }}
         machineConfigRef:
           kind: HarvesterConfig
           name: {{ .Values.machinePool.configName }}
-    chartValues:
-      rke2-coredns:
-        enabled: true
-      rke2-metrics-server:
-        enabled: true
     machineGlobalConfig:
       disable:
         - rke2-ingress-nginx
       cni: canal
-      selinux: false
+      selinux: true
