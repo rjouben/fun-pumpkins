@@ -1,0 +1,52 @@
+# manifests/ubuntu-vm.yaml
+apiVersion: harvester.cattle.io/v1alpha1
+kind: VirtualMachine
+metadata:
+  name: ubuntu-24-vm
+  namespace: default
+spec:
+  template:
+    spec:
+      running: true
+      template:
+        spec:
+          domain:
+            cpu:
+              cores: 2
+            memory:
+              size: 4Gi
+          networks:
+            - name: default
+              networkName: vm-network
+              model: virtio
+          volumes:
+            - name: root-disk
+              volume:
+                dataSource:
+                  kind: VirtualMachineImage
+                  name: ubuntu-24
+            # Extra persistent data disk
+            - name: extra-disk
+              volume:
+                persistentVolumeClaim:
+                  claimName: ubuntu-data-disk
+          cloudInit:
+            user: ubuntu
+            password: "ubuntu"
+            sshAuthorizedKeys:
+              - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP+tW85n9PNJCxd9dfbwq4Afgkn8pYY+qoiaCA+7gD2"
+          terminationGracePeriodSeconds: 0
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ubuntu-data-disk
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: longhornn
