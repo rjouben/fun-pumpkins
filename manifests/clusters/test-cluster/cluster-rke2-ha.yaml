@@ -5,7 +5,7 @@ metadata:
   namespace: fleet-local
 spec:
   # request a specific RKE2 version (adjust as needed)
-  kubernetesVersion: "v1.30.2+rke2r1"
+  kubernetesVersion: "v1.30.0+rke2r1"
   # CNI choice (canal/calico/none depending on your preference)
   cni: canal
   # reference to the cloud credential secret in the same namespace
