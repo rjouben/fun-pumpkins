@@ -1,0 +1,176 @@
+apiVersion: harvesterhci.io/v1beta1
+kind: VirtualMachineTemplateVersion
+metadata:
+  annotations:
+    template-version.harvesterhci.io/customName: uiuFSdKoui
+  creationTimestamp: '2025-09-22T21:40:59Z'
+  generateName: vms-ubuntu-24-
+  generation: 2
+  labels:
+    template.harvesterhci.io/templateID: vms-ubuntu-24
+  managedFields:
+    - apiVersion: harvesterhci.io/v1beta1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:template-version.harvesterhci.io/customName: {}
+          f:generateName: {}
+          f:labels:
+            .: {}
+            f:template.harvesterhci.io/templateID: {}
+          f:ownerReferences:
+            .: {}
+            k:{"uid":"a3b794e5-b27e-46b8-8c43-fa30ec0928cc"}: {}
+        f:spec:
+          .: {}
+          f:templateId: {}
+          f:vm:
+            .: {}
+            f:metadata:
+              .: {}
+              f:annotations:
+                .: {}
+                f:harvesterhci.io/volumeClaimTemplates: {}
+              f:creationTimestamp: {}
+            f:spec:
+              .: {}
+              f:runStrategy: {}
+              f:template:
+                .: {}
+                f:metadata:
+                  .: {}
+                  f:annotations:
+                    .: {}
+                    f:harvesterhci.io/sshNames: {}
+                  f:creationTimestamp: {}
+                f:spec:
+                  .: {}
+                  f:affinity: {}
+                  f:domain:
+                    .: {}
+                    f:cpu:
+                      .: {}
+                      f:cores: {}
+                      f:sockets: {}
+                      f:threads: {}
+                    f:devices:
+                      .: {}
+                      f:disks: {}
+                      f:inputs: {}
+                      f:interfaces: {}
+                    f:features:
+                      .: {}
+                      f:acpi:
+                        .: {}
+                        f:enabled: {}
+                    f:machine:
+                      .: {}
+                      f:type: {}
+                    f:resources:
+                      .: {}
+                      f:limits:
+                        .: {}
+                        f:cpu: {}
+                        f:memory: {}
+                  f:evictionStrategy: {}
+                  f:networks: {}
+                  f:terminationGracePeriodSeconds: {}
+                  f:volumes: {}
+        f:status:
+          .: {}
+          f:conditions: {}
+          f:version: {}
+      manager: harvester
+      operation: Update
+      time: '2025-09-22T21:40:59Z'
+  name: vms-ubuntu-24-mxzvg
+  namespace: default
+  ownerReferences:
+    - apiVersion: harvesterhci.io/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: VirtualMachineTemplate
+      name: vms-ubuntu-24
+      uid: a3b794e5-b27e-46b8-8c43-fa30ec0928cc
+  resourceVersion: '169083868'
+  uid: 678aae66-c407-47eb-8f47-a9ef39287742
+spec:
+  templateId: default/vms-ubuntu-24
+  vm:
+    metadata:
+      annotations:
+        harvesterhci.io/volumeClaimTemplates: >-
+          [{"metadata":{"name":"-disk-0-d8qqk","annotations":{"harvesterhci.io/imageId":"default/ubuntu-24"}},"spec":{"accessModes":["ReadWriteMany"],"resources":{"requests":{"storage":"20Gi"}},"volumeMode":"Block","storageClassName":"longhorn-ubuntu-24"}}]
+      creationTimestamp: null
+    spec:
+      runStrategy: RerunOnFailure
+      template:
+        metadata:
+          annotations:
+            harvesterhci.io/sshNames: '["default/rjouben"]'
+          creationTimestamp: null
+        spec:
+          affinity: {}
+          domain:
+            cpu:
+              cores: 2
+              sockets: 1
+              threads: 1
+            devices:
+              disks:
+                - bootOrder: 1
+                  disk:
+                    bus: virtio
+                  name: disk-0
+                - disk:
+                    bus: virtio
+                  name: cloudinitdisk
+              inputs:
+                - bus: usb
+                  name: tablet
+                  type: tablet
+              interfaces:
+                - bridge: {}
+                  model: virtio
+                  name: default
+                - masquerade: {}
+                  model: virtio
+                  name: mgmt-nic
+            features:
+              acpi:
+                enabled: true
+            machine:
+              type: ''
+            resources:
+              limits:
+                cpu: '2'
+                memory: 4Gi
+          evictionStrategy: LiveMigrateIfPossible
+          networks:
+            - multus:
+                networkName: default/vm-network
+              name: default
+            - name: mgmt-nic
+              pod: {}
+          terminationGracePeriodSeconds: 120
+          volumes:
+            - name: disk-0
+              persistentVolumeClaim:
+                claimName: '-disk-0-d8qqk'
+            - cloudInitNoCloud:
+                networkDataSecretRef:
+                  name: vms-ubuntu-24-q0mut
+                secretRef:
+                  name: vms-ubuntu-24-q0mut
+              name: cloudinitdisk
+status:
+  conditions:
+    - lastUpdateTime: '2025-09-22T21:40:59Z'
+      status: 'True'
+      type: ready
+    - lastUpdateTime: '2025-09-22T21:40:59Z'
+      status: 'True'
+      type: assigned
+  version: 1
