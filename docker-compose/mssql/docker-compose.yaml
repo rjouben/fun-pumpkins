@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+  mssql1:
+    image: rapidfort/microsoft-sql-server-2019-ib:latest
+    container_name: mssql-instance-1
+    hostname: mssql1
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD_FILE: /run/secrets/mssql1_sa_password
+    ports:
+      - "1433:1433"  # Exposed directly on host
+    volumes:
+      - mssql1_data:/var/opt/mssql
+    networks:
+      mssqlnet:
+        aliases:
+          - mssql1.fun-pumpkins.net
+    secrets:
+      - mssql1_sa_password
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/1433'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+
+  mssql2:
+    image: rapidfort/microsoft-sql-server-2019-ib:latest
+    container_name: mssql-instance-2
+    hostname: mssql2
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD_FILE: /run/secrets/mssql2_sa_password
+    ports:
+      - "1434:1433"  # Exposed directly on host
+    volumes:
+      - mssql2_data:/var/opt/mssql
+    networks:
+      mssqlnet:
+        aliases:
+          - mssql2.fun-pumpkins.net
+    secrets:
+      - mssql2_sa_password
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/1433'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+
+volumes:
+  mssql1_data:
+  mssql2_data:
+
+secrets:
+  mssql1_sa_password:
+    file: ./secrets/mssql1_sa_password.txt
+  mssql2_sa_password:
+    file: ./secrets/mssql2_sa_password.txt
+
+networks:
+  mssqlnet:
+    driver: bridge
